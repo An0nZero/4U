@@ -1,10 +1,10 @@
-package client;
+package network.client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import connection.ConnectionHandler;
+import network.connection.ConnectionHandler;
 
 public class Client{
 	
@@ -31,7 +31,6 @@ public class Client{
         } catch (IOException e) {
             System.err.println("[ERROR] Couldn't get I/O for the connection to: " + this.connection.getAddress() + ":" + this.connection.getPort());
         }
-	}	
-	
+	}
 	
 }

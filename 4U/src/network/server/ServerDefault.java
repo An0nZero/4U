@@ -1,4 +1,4 @@
-package server;
+package network.server;
 
 public class ServerDefault extends Server{
 
