@@ -28,7 +28,7 @@ public class Board {
 		if(hasPiece(row, col))
 			throw new CellAlreadyOccupied();
 		
-		board[col][row] = new Piece(owner);
+		board[col][row] = new Piece(owner, row, col);
 	}
 	
 	public boolean hasPiece(int row, int col){
@@ -45,10 +45,6 @@ public class Board {
 	
 	public int getColumns(){
 		return this.columns;
-	}
-	
-	public boolean checkFourInLine(Player played, int row, int col){
-		
 	}
 	
 	private void populateNulls(){
