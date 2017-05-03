@@ -13,30 +13,30 @@ public class Board {
 	private Piece[][] board;
 	
 	public Board(){
-		this.rows = DEFAULT_ROWS;
-		this.columns = DEFAULT_COLUMNS;
-		this.populateNulls();
+		this( DEFAULT_ROWS, DEFAULT_COLUMNS );
 	}
 	
 	public Board(int rows, int columns){
 		this.rows = rows;
 		this.columns = columns;
-		this.populateNulls();
+		for(int i = 0; i < rows; i++){
+		    board[i] = new Piece[columns];
+		}
 	}
 	
 	public void setPiece(Player owner, int row, int col) throws CellAlreadyOccupied{
 		if(hasPiece(row, col))
 			throw new CellAlreadyOccupied();
 		
-		board[col][row] = new Piece(owner, row, col);
+		board[row][col] = new Piece(owner, row, col);
 	}
 	
 	public boolean hasPiece(int row, int col){
-		return board[col][row] == null;
+		return board[row][col] == null;
 	}
 	
 	public Piece getPiece(int row, int col){
-		return board[col][row];
+		return board[row][col];
 	}
 	
 	public int getRows(){
@@ -47,9 +47,9 @@ public class Board {
 		return this.columns;
 	}
 	
-	private void populateNulls(){
-		for(int i = 0; i < this.columns; i++){
-			for(int j = 0; j < this.rows; j++){
+	public void resetBoard(){
+		for(int i = 0; i < this.rows; i++){
+			for(int j = 0; j < this.columns; j++){
 				board[i][j] = null;
 			}
 		}
