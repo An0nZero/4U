@@ -3,7 +3,7 @@ package tests;
 // import static org.junit.Assert.*;
 import org.junit.Test;
 
-import exceptions.CellAlreadyOccupiedException;
+import exceptions.ColumnFullException;
 import game.Checker;
 import game.entities.Board;
 import game.entities.Player;
@@ -13,7 +13,7 @@ public class Game {
 	private void set(Board b, Player p, int col) {
 		try {
 			b.setPiece(p, col);
-		} catch (CellAlreadyOccupiedException e1) {
+		} catch (ColumnFullException e) {
 			assert false;
 		}
 	}
@@ -62,7 +62,7 @@ public class Game {
 		try {
 			b.setPiece(new Player("p"), b.getColumns() - 1);
 			assert false;
-		} catch (CellAlreadyOccupiedException e) {
+		} catch (ColumnFullException e) {
 			assert true;
 		}
 
