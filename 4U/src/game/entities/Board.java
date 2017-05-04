@@ -1,6 +1,5 @@
 package game.entities;
 
-import exceptions.CellAlreadyOccupiedException;
 import exceptions.ColumnFullException;
 
 public class Board {
@@ -37,7 +36,7 @@ public class Board {
 	 * @throws ColumnFullException
 	 *             thrown if the column index references a full column
 	 */
-	public void setPiece(Player owner, int col) throws CellAlreadyOccupiedException, ColumnFullException {
+	public void setPiece(Player owner, int col) throws ColumnFullException {
 
 		if (colIsFull(col))
 			throw new ColumnFullException();
