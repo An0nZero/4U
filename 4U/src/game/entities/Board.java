@@ -1,17 +1,19 @@
 package game.entities;
 
 import exceptions.CellAlreadyOccupiedException;
+import exceptions.ColumnFullException;
 
 public class Board {
 
 	private static final int DEFAULT_ROWS = 6;
 	private static final int DEFAULT_COLUMNS = 10;
 	
-	private final int rows;
-	private final int columns;
+	private final int rows;		//number of rows on the board
+	private final int columns;	//number of columns on the board
 	
-	private Piece[][] board;
-	private Piece lastPiece;
+	private int[] pieceCount;	//number of pieces on each column
+	private Piece[][] board;	//array of pieces representing a game board
+	private Piece lastPiece;	//last piece that was played
 	
 	public Board(){
 		this( DEFAULT_ROWS, DEFAULT_COLUMNS );
@@ -21,23 +23,33 @@ public class Board {
 		this.rows = rows;
 		this.columns = columns;
 		this.board = new Piece[rows][columns];
+		this.pieceCount = new int[columns];
 	}
 	
-	public void setPiece(Player owner, int col) throws CellAlreadyOccupiedException{
+	/**
+	 * Sets a Piece on the board in the first available row of a given column
+	 * @param owner owner of the Piece
+	 * @param col column index on where to put the Piece
+	 * @throws CellAlreadyOccupiedException 
+	 * @throws ColumnFullException thrown if the column index references a full column
+	 */
+	public void setPiece(Player owner, int col) throws CellAlreadyOccupiedException, ColumnFullException{
 	    
-	    int row = 0;
+		if(colIsFull(col))
+			throw new ColumnFullException();
 		
-	    // Make the piece fall into the correct place
-	    for(int i = row + 1; i < this.rows && board[i][col] == null; i++) {
-	        row++;
-	    }
-        
-	    if(hasPiece(row, col))
-	        throw new CellAlreadyOccupiedException();
-        
-	    lastPiece = board[row][col] = new Piece(owner, row, col);
+		pieceCount[col]++;
+		
+		int row = rows - pieceCount[col];
+		
+		lastPiece = board[row][col] = new Piece(owner, row, col);
+	    
 	}
 	
+	/**
+	 * Returns the last piece played.
+	 * @return last piece played
+	 */
 	public Piece lastPiece() {
 	    return this.lastPiece;
 	}
@@ -65,10 +77,22 @@ public class Board {
 	            board[i][j] = null;
 	        }
 	    }
+	    
+	    for(int i = 0; i < columns; i++){
+	    	pieceCount[i] = 0;
+	    }
 	}
 	
 	public static boolean validRowsColumns(int rows, int columns){
 		return rows > 4 && columns > 4;
+	}
+	
+	/**
+	 * Verifies if the column with a given index is full or not.
+	 * @param col index of the column to verify
+	 */
+	boolean colIsFull(int col){
+		return pieceCount[col] >= rows;
 	}
 	
 }
