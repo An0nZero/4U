@@ -19,9 +19,7 @@ public class Board {
 	public Board(int rows, int columns){
 		this.rows = rows;
 		this.columns = columns;
-		for(int i = 0; i < rows; i++){
-		    board[i] = new Piece[columns];
-		}
+		this.board = new Piece[rows][columns];
 	}
 	
 	public void setPiece(Player owner, int row, int col) throws CellAlreadyOccupied{
