@@ -15,7 +15,7 @@ public class Checker {
 		return checkHorizontaly(p) && checkVerticaly(p) && checkDiagonaly(p) && checkOtherDiagonaly(p);
 	}
 	
-	public boolean checkHorizontaly(Piece p){
+	private boolean checkHorizontaly(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
@@ -33,7 +33,7 @@ public class Checker {
 		return (countLeft + countRight + 1) >= 4;
 	}
 	
-	public boolean checkVerticaly(Piece p){
+	private boolean checkVerticaly(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
@@ -46,7 +46,7 @@ public class Checker {
 		return (countDown + 1) >= 4;
 	}
 	
-	public boolean checkDiagonaly(Piece p){
+	private boolean checkDiagonaly(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
@@ -64,7 +64,7 @@ public class Checker {
 		return (countDown + countUp + 1) >= 4;
 	}
 	
-	public boolean checkOtherDiagonaly(Piece p){
+	private boolean checkOtherDiagonaly(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
