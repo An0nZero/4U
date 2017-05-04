@@ -7,11 +7,11 @@ public class Board {
 	private static final int DEFAULT_ROWS = 6;
 	private static final int DEFAULT_COLUMNS = 10;
 	
-	private int rows;
-	private int columns;
-	private Piece lastPiece;
+	private final int rows;
+	private final int columns;
 	
 	private Piece[][] board;
+	private Piece lastPiece;
 	
 	public Board(){
 		this( DEFAULT_ROWS, DEFAULT_COLUMNS );
@@ -59,11 +59,12 @@ public class Board {
 	}
 	
 	public void resetBoard(){
-		for(int i = 0; i < this.rows; i++){
-			for(int j = 0; j < this.columns; j++){
-				board[i][j] = null;
-			}
-		}
+	    this.lastPiece = null;
+	    for(int i = 0; i < this.rows; i++){
+	        for(int j = 0; j < this.columns; j++){
+	            board[i][j] = null;
+	        }
+	    }
 	}
 	
 	public static boolean validRowsColumns(int rows, int columns){
