@@ -7,36 +7,89 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServerConnectionHandler {
-	
-	private String address;
+
+	/**
+	 * Client address.
+	 */
+	private String clientAddress;
+
+	/**
+	 * Server port.
+	 */
 	private int port;
+
+	/**
+	 * Server socket established with the client.
+	 */
 	private ServerSocket servSocket;
+
+	/**
+	 * Generic socket of the server socket.
+	 */
 	private Socket socket;
+
+	/**
+	 * Output stream used to write to the client.
+	 */
 	private ObjectOutputStream out;
+
+	/**
+	 * Input stream used to receive from the client.
+	 */
 	private ObjectInputStream in;
-	
-	public ServerConnectionHandler(int port) throws IOException{
+
+	/**
+	 * Creates a new socket.
+	 * 
+	 * @param port
+	 *            Port to listen on.
+	 * @throws IOException
+	 *             thrown if something goes wrong.
+	 */
+	public ServerConnectionHandler(int port) throws IOException {
 		this.port = port;
 		this.servSocket = new ServerSocket(this.port);
 	}
-	
-	public void start() throws IOException{
+
+	/**
+	 * Start waiting for an incoming connection.
+	 * 
+	 * @throws IOException
+	 *             thrown if something goes wrong.
+	 */
+	public void start() throws IOException {
 		this.socket = servSocket.accept();
-		this.address = socket.getInetAddress().toString();
+		this.clientAddress = socket.getInetAddress().toString();
 	}
-	
-	public void createStreams() throws IOException{
+
+	/**
+	 * Creates the streams to receive and send.
+	 * 
+	 * @throws IOException
+	 */
+	public void createStreams() throws IOException {
 		this.out = new ObjectOutputStream(socket.getOutputStream());
-	    this.in = new ObjectInputStream(socket.getInputStream());
+		this.in = new ObjectInputStream(socket.getInputStream());
 	}
-	
-	public void close() throws IOException{
+
+	/**
+	 * Closes the streams and the socket.
+	 * 
+	 * @throws IOException
+	 */
+	public void close() throws IOException {
 		in.close();
 		out.close();
 		socket.close();
 	}
-	
-	public void send(Object o){
+
+	/**
+	 * Sends an object over the established connection.
+	 * 
+	 * @param o
+	 *            Object to send.
+	 */
+	public void send(Object o) {
 		try {
 			this.out.writeObject(o);
 			this.out.flush();
@@ -44,33 +97,68 @@ public class ServerConnectionHandler {
 			e.printStackTrace();
 		}
 	}
-	
-	public Object read() throws ClassNotFoundException, IOException{
+
+	/**
+	 * Reads and object over the established connection.
+	 * 
+	 * @return Object read
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
+	public Object read() throws IOException, ClassNotFoundException {
 		return in.readObject();
 	}
-	
-	public String getAddress(){
-		return this.address;
+
+	/**
+	 * Returns the address from the client.
+	 * 
+	 * @return address from the client.
+	 */
+	public String getClientAddress() {
+		return this.clientAddress;
 	}
-	
-	public int getPort(){
+
+	/**
+	 * Returns the port on wich the server is listening.
+	 * 
+	 * @return server port
+	 */
+	public int getPort() {
 		return this.port;
 	}
-	
-	public Socket getSocket(){
+
+	/**
+	 * Returns the generic socket.
+	 * 
+	 * @return generic socket
+	 */
+	public Socket getSocket() {
 		return this.socket;
 	}
-	
-	public ServerSocket getServerSocket(){
+
+	/**
+	 * Returns the server socket.
+	 * 
+	 * @return server socket
+	 */
+	public ServerSocket getServerSocket() {
 		return this.servSocket;
 	}
-	
-	public ObjectOutputStream getOutStream(){
+
+	/**
+	 * Returns the stream to where is writing.
+	 * @return output stream
+	 */
+	public ObjectOutputStream getOutStream() {
 		return this.out;
 	}
-	
-	public ObjectInputStream getInStream(){
+
+	/**
+	 * Returns the stream from where is reading.
+	 * @return input stream
+	 */
+	public ObjectInputStream getInStream() {
 		return this.in;
 	}
-	
+
 }
