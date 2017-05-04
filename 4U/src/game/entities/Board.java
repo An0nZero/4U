@@ -4,8 +4,8 @@ import exceptions.CellAlreadyOccupied;
 
 public class Board {
 
-	private static final int DEFAULT_ROWS = 6;
-	private static final int DEFAULT_COLUMNS = 10;
+	public static final int DEFAULT_ROWS = 6;
+	public static final int DEFAULT_COLUMNS = 10;
 	
 	private int rows;
 	private int columns;
@@ -30,7 +30,7 @@ public class Board {
 	}
 	
 	public boolean hasPiece(int row, int col){
-		return board[row][col] == null;
+		return board[row][col] != null;
 	}
 	
 	public Piece getPiece(int row, int col){
