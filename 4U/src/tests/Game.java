@@ -36,7 +36,7 @@ public class Game {
 		assert !b.hasPiece(0, 0);
 		assert !b.hasPiece(b.getRows() - 1, b.getColumns() - 1);
 
-		set(b, new Player(), 0);
+		set(b, new Player("p"), 0);
 
 		assert !b.hasPiece(0, 0);
 		assert b.hasPiece(b.getRows() - 1, 0);
@@ -49,18 +49,18 @@ public class Game {
 
 		assert !b.hasPiece(0, 0);
 
-		set(b, new Player(), b.getColumns() - 1);
+		set(b, new Player("p"), b.getColumns() - 1);
 
 		assert b.hasPiece(b.getRows() - 1, b.getColumns() - 1);
 
-		set(b, new Player(), b.getColumns() - 1);
-		set(b, new Player(), b.getColumns() - 1);
-		set(b, new Player(), b.getColumns() - 1);
-		set(b, new Player(), b.getColumns() - 1);
-		set(b, new Player(), b.getColumns() - 1);
+		set(b, new Player("p"), b.getColumns() - 1);
+		set(b, new Player("p"), b.getColumns() - 1);
+		set(b, new Player("p"), b.getColumns() - 1);
+		set(b, new Player("p"), b.getColumns() - 1);
+		set(b, new Player("p"), b.getColumns() - 1);
 
 		try {
-			b.setPiece(new Player(), b.getColumns() - 1);
+			b.setPiece(new Player("p"), b.getColumns() - 1);
 			assert false;
 		} catch (CellAlreadyOccupiedException e) {
 			assert true;
@@ -89,7 +89,7 @@ public class Game {
 		Board b = new Board();
 		Checker c = new Checker(b);
 
-		Player p1 = new Player(), p2 = new Player();
+		Player p1 = new Player("p1"), p2 = new Player("p2");
 
 		// ## The last piece inserted is on the end of the line
 
