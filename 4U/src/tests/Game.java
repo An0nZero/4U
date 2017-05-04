@@ -44,6 +44,10 @@ public class Game {
         
         assert !b.hasPiece( 0, 0 );
         
+        b.setPiece( new Player(), Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+        
+        assert b.hasPiece( Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+        
     }
 
 }
