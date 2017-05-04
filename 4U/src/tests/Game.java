@@ -2,6 +2,8 @@ package tests;
 
 // import static org.junit.Assert.*;
 import org.junit.Test;
+
+import exceptions.CellAlreadyOccupied;
 import game.entities.Board;
 import game.entities.Player;
 
@@ -47,6 +49,13 @@ public class Game {
         b.setPiece( new Player(), Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
         
         assert b.hasPiece( Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+        
+        try {
+            b.setPiece( new Player(), Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+            assert false;
+        } catch ( CellAlreadyOccupied e ) {
+            assert true;
+        }
         
     }
 
