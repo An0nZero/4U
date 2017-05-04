@@ -3,6 +3,8 @@ package network.server;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import network.exceptions.InvalidServerPortException;
+
 public class Server implements Runnable {
 
 	private static final int SERVER_DEFAULT_PORT = 57000;
@@ -11,10 +13,17 @@ public class Server implements Runnable {
 	private boolean debugMode = false;
 	private ServerConnectionHandler connection;
 
-	public Server(int port) {
-
+	/**
+	 * Creates a new server listening on port 'port'.
+	 * @param port String that will be verified through a regex and then parsed into an integer.
+	 * @throws InvalidServerPortException Thrown if the regex check fails.
+	 */
+	public Server(String port) throws InvalidServerPortException {
+		if(!validServerPort(port))
+			throw new InvalidServerPortException();
+			
 		try {
-			this.connection = new ServerConnectionHandler(port);
+			this.connection = new ServerConnectionHandler(Integer.parseInt(port));
 		} catch (IOException e) {
 			System.err.println("[ERROR] Could not listen on port " + this.connection.getPort());
 		}
@@ -22,6 +31,9 @@ public class Server implements Runnable {
 		initConnection();
 	}
 
+	/**
+	 * Creates a new server listenin on the default port (57000).
+	 */
 	public Server() {
 
 		try {
@@ -33,13 +45,23 @@ public class Server implements Runnable {
 		initConnection();
 	}
 
-	public void receive() {
+	/**
+	 * Receives packet.
+	 */
+	private void receive() {
 
 		do {
 			// Reading Loop
 
 		} while (true);
 
+	}
+	
+	/**
+	 * Sends packet.
+	 */
+	private void send(){
+		
 	}
 
 	public void run() {
