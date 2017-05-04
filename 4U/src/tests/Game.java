@@ -28,20 +28,27 @@ public class Game {
         assert !b.hasPiece( 0, 0 );
         assert !b.hasPiece( b.getRows() - 1, b.getColumns() - 1 );
         
-        b.setPiece( new Player(), 0, 0 );
+        b.setPiece( new Player(), 0 );
         
-        assert b.hasPiece( 0, 0 );
+        assert !b.hasPiece( 0, 0 );
+        assert b.hasPiece( b.getRows() - 1, 0 );
         
         b.resetBoard();
         
         assert !b.hasPiece( 0, 0 );
         
-        b.setPiece( new Player(), b.getRows() - 1, b.getColumns() - 1 );
+        b.setPiece( new Player(), b.getColumns() - 1 );
         
         assert b.hasPiece( b.getRows() - 1, b.getColumns() - 1 );
         
+        b.setPiece( new Player(), b.getColumns() - 1 );
+        b.setPiece( new Player(), b.getColumns() - 1 );
+        b.setPiece( new Player(), b.getColumns() - 1 );
+        b.setPiece( new Player(), b.getColumns() - 1 );
+        b.setPiece( new Player(), b.getColumns() - 1 );
+        
         try {
-            b.setPiece( new Player(), b.getRows() - 1, b.getColumns() - 1 );
+            b.setPiece( new Player(), b.getColumns() - 1 );
             assert false;
         } catch ( CellAlreadyOccupied e ) {
             assert true;
@@ -73,28 +80,28 @@ public class Game {
         
         // Placing 4 pieces horizontally...
         
-        b.setPiece( p2, 4, 0 );
-        b.setPiece( p1, 4, 1 );
-        b.setPiece( p1, 4, 2 );
-        b.setPiece( p1, 4, 3 );
+        b.setPiece( p2, 0 );
+        b.setPiece( p1, 1 );
+        b.setPiece( p1, 2 );
+        b.setPiece( p1, 3 );
+
+        assert !c.check( b.lastPiece() );
         
-        assert !c.check( b.getPiece( 4, 3 ) );
-        
-        b.setPiece( p1, 4, 4 );
+        b.setPiece( p1, 4 );
         
         assert c.check( b.lastPiece() );
         
         // Placing 4 pieces vertically...
         b.resetBoard();
         
-        b.setPiece( p2, 4, 0 );
-        b.setPiece( p1, 3, 0 );
-        b.setPiece( p1, 2, 0 );
-        b.setPiece( p1, 1, 0 );
+        b.setPiece( p2, 0 );
+        b.setPiece( p1, 0 );
+        b.setPiece( p1, 0 );
+        b.setPiece( p1, 0 );
         
-        assert !c.check( b.getPiece( 1, 0 ) );
+        assert !c.check( b.lastPiece() );
         
-        b.setPiece( p1, 0, 0 );
+        b.setPiece( p1, 0 );
         
         assert c.check( b.lastPiece() );
         

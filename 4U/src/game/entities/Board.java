@@ -23,12 +23,19 @@ public class Board {
 		this.board = new Piece[rows][columns];
 	}
 	
-	// TODO maybe change this method so that the piece falls into the correct place? Like in a real game?
-	public void setPiece(Player owner, int row, int col) throws CellAlreadyOccupied{
-		if(hasPiece(row, col))
-			throw new CellAlreadyOccupied();
+	public void setPiece(Player owner, int col) throws CellAlreadyOccupied{
+	    
+	    int row = 0;
 		
-		lastPiece = board[row][col] = new Piece(owner, row, col);
+	    // Make the piece fall into the correct place
+	    for(int i = row + 1; i < this.rows && board[i][col] == null; i++) {
+	        row++;
+	    }
+        
+	    if(hasPiece(row, col))
+	        throw new CellAlreadyOccupied();
+        
+	    lastPiece = board[row][col] = new Piece(owner, row, col);
 	}
 	
 	public Piece lastPiece() {
