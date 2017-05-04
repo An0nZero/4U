@@ -1,10 +1,9 @@
-package network.client;
+package network;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
-import network.connection.ConnectionHandler;
 import network.exceptions.InvalidServerAddressException;
 import network.exceptions.InvalidServerPortException;
 

@@ -2,7 +2,7 @@ package game.multiplayer;
 
 import java.util.Scanner;
 
-import network.client.Client;
+import network.Client;
 
 public class multiplayer {
 
