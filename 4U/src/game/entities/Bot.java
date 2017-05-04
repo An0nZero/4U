@@ -11,7 +11,7 @@ public class Bot extends Player {
 	private Random rand;
 
 	public Bot(Board board) {
-		super("\0Bot");
+		super("\0Bot"); // Use '\0' to prevent other players from having this name
 		this.board = board;
 		this.columns = board.getColumns();
 		this.rand = new Random();
