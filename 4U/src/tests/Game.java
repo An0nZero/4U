@@ -26,7 +26,7 @@ public class Game {
         Board b = new Board();
         
         assert !b.hasPiece( 0, 0 );
-        assert !b.hasPiece( Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+        assert !b.hasPiece( b.getRows() - 1, b.getColumns() - 1 );
         
         b.setPiece( new Player(), 0, 0 );
         
@@ -36,12 +36,12 @@ public class Game {
         
         assert !b.hasPiece( 0, 0 );
         
-        b.setPiece( new Player(), Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+        b.setPiece( new Player(), b.getRows() - 1, b.getColumns() - 1 );
         
-        assert b.hasPiece( Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+        assert b.hasPiece( b.getRows() - 1, b.getColumns() - 1 );
         
         try {
-            b.setPiece( new Player(), Board.DEFAULT_ROWS - 1, Board.DEFAULT_COLUMNS - 1 );
+            b.setPiece( new Player(), b.getRows() - 1, b.getColumns() - 1 );
             assert false;
         } catch ( CellAlreadyOccupied e ) {
             assert true;

@@ -4,8 +4,8 @@ import exceptions.CellAlreadyOccupied;
 
 public class Board {
 
-	public static final int DEFAULT_ROWS = 6;
-	public static final int DEFAULT_COLUMNS = 10;
+	private static final int DEFAULT_ROWS = 6;
+	private static final int DEFAULT_COLUMNS = 10;
 	
 	private int rows;
 	private int columns;
