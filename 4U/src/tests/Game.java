@@ -10,6 +10,14 @@ import game.entities.Player;
 
 public class Game {
 
+	private void set(Board b, Player p, int col) {
+		try {
+			b.setPiece(p, col);
+		} catch (CellAlreadyOccupiedException e1) {
+			assert false;
+		}
+	}
+
 	@Test
 	public void initWorks() {
 		Board b1 = new Board();
@@ -28,7 +36,7 @@ public class Game {
 		assert !b.hasPiece(0, 0);
 		assert !b.hasPiece(b.getRows() - 1, b.getColumns() - 1);
 
-		b.setPiece(new Player(), 0);
+		set(b, new Player(), 0);
 
 		assert !b.hasPiece(0, 0);
 		assert b.hasPiece(b.getRows() - 1, 0);
@@ -41,20 +49,20 @@ public class Game {
 
 		assert !b.hasPiece(0, 0);
 
-		b.setPiece(new Player(), b.getColumns() - 1);
+		set(b, new Player(), b.getColumns() - 1);
 
 		assert b.hasPiece(b.getRows() - 1, b.getColumns() - 1);
 
-		b.setPiece(new Player(), b.getColumns() - 1);
-		b.setPiece(new Player(), b.getColumns() - 1);
-		b.setPiece(new Player(), b.getColumns() - 1);
-		b.setPiece(new Player(), b.getColumns() - 1);
-		b.setPiece(new Player(), b.getColumns() - 1);
+		set(b, new Player(), b.getColumns() - 1);
+		set(b, new Player(), b.getColumns() - 1);
+		set(b, new Player(), b.getColumns() - 1);
+		set(b, new Player(), b.getColumns() - 1);
+		set(b, new Player(), b.getColumns() - 1);
 
 		try {
 			b.setPiece(new Player(), b.getColumns() - 1);
 			assert false;
-		} catch (CellAlreadyOccupied e) {
+		} catch (CellAlreadyOccupiedException e) {
 			assert true;
 		}
 
@@ -87,78 +95,78 @@ public class Game {
 
 		// Placing 4 pieces horizontally...
 
-		b.setPiece(p2, 0);
-		b.setPiece(p1, 1);
-		b.setPiece(p1, 2);
-		b.setPiece(p1, 3);
+		set(b, p2, 0);
+		set(b, p1, 1);
+		set(b, p1, 2);
+		set(b, p1, 3);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p1, 4);
+		set(b, p1, 4);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces vertically...
 		b.resetBoard();
 
-		b.setPiece(p2, 0);
-		b.setPiece(p1, 0);
-		b.setPiece(p1, 0);
-		b.setPiece(p1, 0);
+		set(b, p2, 0);
+		set(b, p1, 0);
+		set(b, p1, 0);
+		set(b, p1, 0);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p1, 0);
+		set(b, p1, 0);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces diagonally...
 		b.resetBoard();
 
-		b.setPiece(p2, 0);
-		b.setPiece(p2, 0);
-		b.setPiece(p2, 0);
-		b.setPiece(p2, 0);
-		b.setPiece(p1, 0);
+		set(b, p2, 0);
+		set(b, p2, 0);
+		set(b, p2, 0);
+		set(b, p2, 0);
+		set(b, p1, 0);
 
-		b.setPiece(p2, 1);
-		b.setPiece(p2, 1);
-		b.setPiece(p2, 1);
-		b.setPiece(p1, 1);
+		set(b, p2, 1);
+		set(b, p2, 1);
+		set(b, p2, 1);
+		set(b, p1, 1);
 
-		b.setPiece(p2, 2);
-		b.setPiece(p2, 2);
-		b.setPiece(p1, 2);
+		set(b, p2, 2);
+		set(b, p2, 2);
+		set(b, p1, 2);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p2, 3);
-		b.setPiece(p1, 3);
+		set(b, p2, 3);
+		set(b, p1, 3);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces in the other diagonal...
 		b.resetBoard();
 
-		b.setPiece(p2, 4);
-		b.setPiece(p2, 4);
-		b.setPiece(p2, 4);
-		b.setPiece(p2, 4);
-		b.setPiece(p1, 4);
+		set(b, p2, 4);
+		set(b, p2, 4);
+		set(b, p2, 4);
+		set(b, p2, 4);
+		set(b, p1, 4);
 
-		b.setPiece(p2, 3);
-		b.setPiece(p2, 3);
-		b.setPiece(p2, 3);
-		b.setPiece(p1, 3);
+		set(b, p2, 3);
+		set(b, p2, 3);
+		set(b, p2, 3);
+		set(b, p1, 3);
 
-		b.setPiece(p2, 2);
-		b.setPiece(p2, 2);
-		b.setPiece(p1, 2);
+		set(b, p2, 2);
+		set(b, p2, 2);
+		set(b, p1, 2);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p2, 1);
-		b.setPiece(p1, 1);
+		set(b, p2, 1);
+		set(b, p1, 1);
 
 		assert c.check(b.lastPiece());
 
@@ -167,66 +175,66 @@ public class Game {
 		// Placing 4 pieces horizontally...
 		b.resetBoard();
 
-		b.setPiece(p2, 0);
-		b.setPiece(p1, 1);
-		b.setPiece(p1, 2);
-		b.setPiece(p1, 4);
+		set(b, p2, 0);
+		set(b, p1, 1);
+		set(b, p1, 2);
+		set(b, p1, 4);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p1, 3);
+		set(b, p1, 3);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces diagonally...
 		b.resetBoard();
 
-		b.setPiece(p1, 0);
-		b.setPiece(p1, 0);
-		b.setPiece(p1, 0);
-		b.setPiece(p1, 0);
-		b.setPiece(p2, 0);
+		set(b, p1, 0);
+		set(b, p1, 0);
+		set(b, p1, 0);
+		set(b, p1, 0);
+		set(b, p2, 0);
 
-		b.setPiece(p1, 1);
-		b.setPiece(p1, 1);
-		b.setPiece(p1, 1);
+		set(b, p1, 1);
+		set(b, p1, 1);
+		set(b, p1, 1);
 
-		b.setPiece(p1, 2);
-		b.setPiece(p1, 2);
-		b.setPiece(p2, 2);
+		set(b, p1, 2);
+		set(b, p1, 2);
+		set(b, p2, 2);
 
-		b.setPiece(p1, 3);
-		b.setPiece(p2, 3);
+		set(b, p1, 3);
+		set(b, p2, 3);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p2, 1);
+		set(b, p2, 1);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces in the other diagonal...
 		b.resetBoard();
 
-		b.setPiece(p1, 4);
-		b.setPiece(p1, 4);
-		b.setPiece(p1, 4);
-		b.setPiece(p1, 4);
-		b.setPiece(p2, 4);
+		set(b, p1, 4);
+		set(b, p1, 4);
+		set(b, p1, 4);
+		set(b, p1, 4);
+		set(b, p2, 4);
 
-		b.setPiece(p1, 3);
-		b.setPiece(p1, 3);
-		b.setPiece(p1, 3);
+		set(b, p1, 3);
+		set(b, p1, 3);
+		set(b, p1, 3);
 
-		b.setPiece(p1, 2);
-		b.setPiece(p1, 2);
-		b.setPiece(p2, 2);
+		set(b, p1, 2);
+		set(b, p1, 2);
+		set(b, p2, 2);
 
-		b.setPiece(p1, 1);
-		b.setPiece(p2, 1);
+		set(b, p1, 1);
+		set(b, p2, 1);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p2, 3);
+		set(b, p2, 3);
 
 		assert c.check(b.lastPiece());
 
@@ -235,66 +243,66 @@ public class Game {
 		// Placing 4 pieces horizontally...
 		b.resetBoard();
 
-		b.setPiece(p2, 0);
-		b.setPiece(p1, 2);
-		b.setPiece(p1, 3);
-		b.setPiece(p1, 4);
+		set(b, p2, 0);
+		set(b, p1, 2);
+		set(b, p1, 3);
+		set(b, p1, 4);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p1, 1);
+		set(b, p1, 1);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces diagonally...
 		b.resetBoard();
 
-		b.setPiece(p2, 0);
-		b.setPiece(p2, 0);
-		b.setPiece(p2, 0);
-		b.setPiece(p2, 0);
+		set(b, p2, 0);
+		set(b, p2, 0);
+		set(b, p2, 0);
+		set(b, p2, 0);
 
-		b.setPiece(p2, 1);
-		b.setPiece(p2, 1);
-		b.setPiece(p2, 1);
-		b.setPiece(p1, 1);
+		set(b, p2, 1);
+		set(b, p2, 1);
+		set(b, p2, 1);
+		set(b, p1, 1);
 
-		b.setPiece(p2, 2);
-		b.setPiece(p2, 2);
-		b.setPiece(p1, 2);
+		set(b, p2, 2);
+		set(b, p2, 2);
+		set(b, p1, 2);
 
-		b.setPiece(p2, 3);
-		b.setPiece(p1, 3);
+		set(b, p2, 3);
+		set(b, p1, 3);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p1, 0);
+		set(b, p1, 0);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces in the other diagonal...
 		b.resetBoard();
 
-		b.setPiece(p2, 4);
-		b.setPiece(p2, 4);
-		b.setPiece(p2, 4);
-		b.setPiece(p2, 4);
+		set(b, p2, 4);
+		set(b, p2, 4);
+		set(b, p2, 4);
+		set(b, p2, 4);
 
-		b.setPiece(p2, 3);
-		b.setPiece(p2, 3);
-		b.setPiece(p2, 3);
-		b.setPiece(p1, 3);
+		set(b, p2, 3);
+		set(b, p2, 3);
+		set(b, p2, 3);
+		set(b, p1, 3);
 
-		b.setPiece(p2, 2);
-		b.setPiece(p2, 2);
-		b.setPiece(p1, 2);
+		set(b, p2, 2);
+		set(b, p2, 2);
+		set(b, p1, 2);
 
-		b.setPiece(p2, 1);
-		b.setPiece(p1, 1);
+		set(b, p2, 1);
+		set(b, p1, 1);
 
 		assert !c.check(b.lastPiece());
 
-		b.setPiece(p1, 4);
+		set(b, p1, 4);
 
 		assert c.check(b.lastPiece());
 
