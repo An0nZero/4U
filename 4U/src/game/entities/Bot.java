@@ -10,8 +10,8 @@ public class Bot extends Player {
 	private int columns;
 	private Random rand;
 
-	public Bot(Board board) {
-		super("\0Bot"); // Use '\0' to prevent other players from having this name
+	public Bot(String name, Board board) {
+		super(name);
 		this.board = board;
 		this.columns = board.getColumns();
 		this.rand = new Random();
