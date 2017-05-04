@@ -8,7 +8,7 @@ import game.entities.Board;
 import game.entities.Player;
 import game.exceptions.ColumnFullException;
 
-public class Game {
+public class TestGame {
 
 	private void set(Board b, Player p, int col) {
 		try {
