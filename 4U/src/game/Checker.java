@@ -7,121 +7,126 @@ import game.entities.Player;
 public class Checker {
 
 	private Board board;
-	
-	public Checker(Board board){
+
+	public Checker(Board board) {
 		this.board = board;
 	}
-	
-	public boolean check(Piece p){
+
+	public boolean check(Piece p) {
 		return checkHorizontally(p) || checkVertically(p) || checkDiagonally(p) || checkOtherDiagonally(p);
 	}
-	
-	private boolean checkOwner( int row, int col, Player owner ) {
-	    Piece p = board.getPiece(row, col);
-	    return p != null && p.getOwner().equals(owner);
+
+	private boolean checkOwner(int row, int col, Player owner) {
+		Piece p = board.getPiece(row, col);
+		return p != null && p.getOwner().equals(owner);
 	}
-	
-	/* Our Board
-	 * _____________________
-	 * | | | | | | | | | | |
-	 * | | | | | | | | | | |
-	 * | | | | | | | | | | |
-	 * | | | | | | | | | | |
-	 * | | | | | | | | | | |
-	 * | | | | | | | | | | |
-	 * ------------------------> j
-	 *                     |
-	 *                     V
-	 *                     i
-	 */
-	
-	/*
-	 * 1 X 2
-	 */
-	private boolean checkHorizontally(Piece p){
+
+	//
+	// Our Board
+	// _____________________
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// -----------------------> j
+	// |
+	// V
+	// i
+	//
+
+	//
+	// 1 X 2
+	//
+	private boolean checkHorizontally(Piece p) {
 		int col = p.getCol();
 		int row = p.getRow();
-		
+
 		Player owner = p.getOwner();
-		
+
 		int count = 1;
-		
-		for(int auxCol = col - 1; auxCol >= 0 && checkOwner(row, auxCol, owner); auxCol--){
-		    count++;
-		}
-		
-		for(int auxCol = col + 1; auxCol < board.getColumns() && checkOwner(row, auxCol, owner); auxCol++){
-		    count++;
-		}
-		
-		return count >= 4;
-	}
-	
-	/*
-	 * X
-	 * 1
-	 */
-	private boolean checkVertically(Piece p){
-		int col = p.getCol();
-		int row = p.getRow();
-		
-		Player owner = p.getOwner();
-		
-		int count = 1;
-		
-		for(int auxRow = row + 1; auxRow < board.getRows() && checkOwner(auxRow, col, owner); auxRow++){
-		    count++;
-		}
-		
-		return count >= 4;
-	}
-	
-	/*
-	 * 1
-	 *  X
-	 *   2
-	 */
-	private boolean checkDiagonally(Piece p){
-		int col = p.getCol();
-		int row = p.getRow();
-		
-		Player owner = p.getOwner();
-		
-		int count = 1;
-		
-		for(int auxCol = col - 1, auxRow = row - 1; auxCol >= 0 && auxRow >= 0 && checkOwner(auxRow, auxCol, owner); auxCol--, auxRow--){
-		    count++;
-		}
-		
-		for(int auxCol = col + 1, auxRow = row + 1; auxCol < board.getColumns() && auxRow < board.getRows() && checkOwner(auxRow, auxCol, owner); auxCol++, auxRow++){
-		    count++;
-		}
-		
-		return count >= 4;
-	}
-	
-	/*
-	 *   1
-	 *  X
-	 * 2
-	 */
-	private boolean checkOtherDiagonally(Piece p){
-		int col = p.getCol();
-		int row = p.getRow();
-		
-		Player owner = p.getOwner();
-		
-		int count = 1;
-		
-		for(int auxCol = col + 1, auxRow = row - 1; auxCol < board.getColumns() && auxRow >= 0 && checkOwner(auxRow, auxCol, owner); auxCol++, auxRow--){
+
+		for (int auxCol = col - 1; auxCol >= 0 && checkOwner(row, auxCol, owner); auxCol--) {
 			count++;
 		}
-		
-		for(int auxCol = col - 1, auxRow = row + 1; auxCol >= 0 && auxRow < board.getRows() && checkOwner(auxRow, auxCol, owner); auxCol--, auxRow++){
-		    count++;
+
+		for (int auxCol = col + 1; auxCol < board.getColumns() && checkOwner(row, auxCol, owner); auxCol++) {
+			count++;
 		}
-		
+
 		return count >= 4;
 	}
-	
+
+	//
+	// X
+	// 1
+	//
+	private boolean checkVertically(Piece p) {
+		int col = p.getCol();
+		int row = p.getRow();
+
+		Player owner = p.getOwner();
+
+		int count = 1;
+
+		for (int auxRow = row + 1; auxRow < board.getRows() && checkOwner(auxRow, col, owner); auxRow++) {
+			count++;
+		}
+
+		return count >= 4;
+	}
+
+	//
+	// 1
+	// ..X
+	// ....2
+	//
+	private boolean checkDiagonally(Piece p) {
+		int col = p.getCol();
+		int row = p.getRow();
+
+		Player owner = p.getOwner();
+
+		int count = 1;
+
+		for (int auxCol = col - 1, auxRow = row - 1; auxCol >= 0 && auxRow >= 0
+				&& checkOwner(auxRow, auxCol, owner); auxCol--, auxRow--) {
+			count++;
+		}
+
+		for (int auxCol = col + 1, auxRow = row + 1; auxCol < board.getColumns() && auxRow < board.getRows()
+				&& checkOwner(auxRow, auxCol, owner); auxCol++, auxRow++) {
+			count++;
+		}
+
+		return count >= 4;
+	}
+
+	//
+	// ....1
+	// ..X
+	// 2
+	//
+	private boolean checkOtherDiagonally(Piece p) {
+		int col = p.getCol();
+		int row = p.getRow();
+
+		Player owner = p.getOwner();
+
+		int count = 1;
+
+		for (int auxCol = col + 1, auxRow = row - 1; auxCol < board.getColumns() && auxRow >= 0
+				&& checkOwner(auxRow, auxCol, owner); auxCol++, auxRow--) {
+			count++;
+		}
+
+		for (int auxCol = col - 1, auxRow = row + 1; auxCol >= 0 && auxRow < board.getRows()
+				&& checkOwner(auxRow, auxCol, owner); auxCol--, auxRow++) {
+			count++;
+		}
+
+		return count >= 4;
+	}
+
 }
