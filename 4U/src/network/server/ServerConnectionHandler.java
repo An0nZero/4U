@@ -86,14 +86,9 @@ public class ServerConnectionHandler {
 		return port;
 	}
 	
-	public static boolean checkRegex(String compare, String regex){
-		Pattern p;
-		Matcher m;
-		
-		p = Pattern.compile(regex);
-		m = p.matcher(compare);
-		
-		return m.matches();
+	public static boolean checkRegex(String compare, Pattern regex){
+        Matcher m = regex.matcher(compare);
+        return m.matches();
 	}
 	
 	public String getAddress(){
