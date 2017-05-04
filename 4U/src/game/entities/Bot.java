@@ -18,7 +18,7 @@ public class Bot extends Player {
 	}
 
 	private int findClosestLeft(int col) {
-		for (int i = 0; i < col; i++) {
+		for (int i = col - 1; i >= 0; i--) {
 			if (!board.colIsFull(i)) {
 				return i;
 			}
