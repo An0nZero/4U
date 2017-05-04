@@ -1,6 +1,6 @@
 package game.entities;
 
-import exceptions.CellAlreadyOccupied;
+import exceptions.CellAlreadyOccupiedException;
 
 public class Board {
 
@@ -23,7 +23,7 @@ public class Board {
 		this.board = new Piece[rows][columns];
 	}
 	
-	public void setPiece(Player owner, int col) throws CellAlreadyOccupied{
+	public void setPiece(Player owner, int col) throws CellAlreadyOccupiedException{
 	    
 	    int row = 0;
 		
@@ -33,7 +33,7 @@ public class Board {
 	    }
         
 	    if(hasPiece(row, col))
-	        throw new CellAlreadyOccupied();
+	        throw new CellAlreadyOccupiedException();
         
 	    lastPiece = board[row][col] = new Piece(owner, row, col);
 	}

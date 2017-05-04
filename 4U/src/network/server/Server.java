@@ -1,69 +1,75 @@
 package network.server;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.regex.Pattern;
 
-public class Server implements Runnable{
-	
+public class Server implements Runnable {
+
+	private static final int SERVER_DEFAULT_PORT = 57000;
+	private static final Pattern SERVER_PORT_PATTERN = Pattern.compile("\\d{1,5}+");
+
+	private boolean debugMode = false;
 	private ServerConnectionHandler connection;
-	
-	public Server(Scanner in){;
-		
-		try {
-			this.connection = new ServerConnectionHandler(in);
-		} catch (IOException e) {
-			System.err.println("[ERROR] Could not listen on port " + this.connection.getPort());
-		}
-		
-		initConnection();
-	}
-	
-	public Server(int port){
-		
+
+	public Server(int port) {
+
 		try {
 			this.connection = new ServerConnectionHandler(port);
 		} catch (IOException e) {
 			System.err.println("[ERROR] Could not listen on port " + this.connection.getPort());
 		}
-		
+
 		initConnection();
 	}
-	
-	public void receive(){
-		
-		do{
-			//Reading Loop
-			
-		}while(true);
-		
-	}
-	
-	public void run() {
+
+	public Server() {
+
 		try {
-			System.out.println("[INFO] Connection established to client " + this.connection.getAddress() + " on port " + this.connection.getPort() + ".\n");
-		    this.connection.createStreams();
+			this.connection = new ServerConnectionHandler(SERVER_DEFAULT_PORT);
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("[ERROR] Could not listen on port " + this.connection.getPort());
 		}
-		
-		System.out.println("[INFO] Streams ready to client " + this.connection.getAddress() + " on port " + this.connection.getPort() + " .\n");
-		
-		receive();
-		
-		System.out.println("Ended connection with client " + this.connection.getAddress() + " on port " + this.connection.getPort() + ".\n");
-	}
-	
-	private void initConnection(){
-		try {
-			while(true){
-				this.connection.start();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+
+		initConnection();
 	}
 
-	
-	
+	public void receive() {
+
+		do {
+			// Reading Loop
+
+		} while (true);
+
+	}
+
+	public void run() {
+		if(debugMode)
+			System.out.println("[INFO] Connection established to client " + this.connection.getAddress() + " on port " + this.connection.getPort() + ".\n");
+		try {
+			this.connection.createStreams();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if(debugMode)
+			System.out.println("[INFO] Streams ready to client " + this.connection.getAddress() + " on port " + this.connection.getPort() + " .\n");
+
+		receive();
+
+		if(debugMode)
+			System.out.println("Ended connection with client " + this.connection.getAddress() + " on port " + this.connection.getPort() + ".\n");
+	}
+
+	private void initConnection() {
+		try {
+			this.connection.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static boolean validServerPort(String input) {
+		return SERVER_PORT_PATTERN.matcher(input).matches();
+	}
+
 }
