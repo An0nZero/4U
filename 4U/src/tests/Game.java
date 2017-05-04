@@ -4,6 +4,7 @@ package tests;
 import org.junit.Test;
 
 import exceptions.CellAlreadyOccupied;
+import game.Checker;
 import game.entities.Board;
 import game.entities.Player;
 
@@ -18,17 +19,6 @@ public class Game {
         assert b2.getRows() == 5;
         assert b2.getColumns() == 5;
     }
-    
-    /* Our Board
-     * _____________________
-     * | | | | | | | | | | |
-     * | | | | | | | | | | |
-     * | | | | | | | | | | |
-     * | | | | | | | | | | |
-     * | | | | | | | | | | |
-     * | | | | | | | | | | |
-     * ---------------------
-     */
     
     @Test
     public void addPiece() {
@@ -56,6 +46,60 @@ public class Game {
         } catch ( CellAlreadyOccupied e ) {
             assert true;
         }
+        
+    }
+    
+    /* Our Board
+     * _____________________
+     * | | | | | | | | | | |
+     * | | | | | | | | | | |
+     * | | | | | | | | | | |
+     * | | | | | | | | | | |
+     * | | | | | | | | | | |
+     * | | | | | | | | | | |
+     * ------------------------> j
+     *                     |
+     *                     V
+     *                     i
+     */
+    
+    @Test
+    public void checker() {
+        
+        Board b = new Board();
+        Checker c = new Checker( b );
+        
+        Player p1 = new Player(), p2 = new Player();
+        
+        // Placing 4 pieces horizontally...
+        
+        b.setPiece( p2, 4, 0 );
+        b.setPiece( p1, 4, 1 );
+        b.setPiece( p1, 4, 2 );
+        b.setPiece( p1, 4, 3 );
+        
+        assert !c.check( b.getPiece( 4, 3 ) );
+        
+        b.setPiece( p1, 4, 4 );
+        
+        assert c.check( b.lastPiece() );
+        
+        // Placing 4 pieces vertically...
+        b.resetBoard();
+        
+        b.setPiece( p2, 4, 0 );
+        b.setPiece( p1, 3, 0 );
+        b.setPiece( p1, 2, 0 );
+        b.setPiece( p1, 1, 0 );
+        
+        assert !c.check( b.getPiece( 1, 0 ) );
+        
+        b.setPiece( p1, 0, 0 );
+        
+        assert c.check( b.lastPiece() );
+        
+        // TODO add more tests...
+        
         
     }
 

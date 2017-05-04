@@ -9,6 +9,7 @@ public class Board {
 	
 	private int rows;
 	private int columns;
+	private Piece lastPiece;
 	
 	private Piece[][] board;
 	
@@ -22,11 +23,16 @@ public class Board {
 		this.board = new Piece[rows][columns];
 	}
 	
+	// TODO maybe change this method so that the piece falls into the correct place? Like in a real game?
 	public void setPiece(Player owner, int row, int col) throws CellAlreadyOccupied{
 		if(hasPiece(row, col))
 			throw new CellAlreadyOccupied();
 		
-		board[row][col] = new Piece(owner, row, col);
+		lastPiece = board[row][col] = new Piece(owner, row, col);
+	}
+	
+	public Piece lastPiece() {
+	    return this.lastPiece;
 	}
 	
 	public boolean hasPiece(int row, int col){
