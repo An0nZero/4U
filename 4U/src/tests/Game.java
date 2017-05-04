@@ -33,7 +33,11 @@ public class Game {
         assert !b.hasPiece( 0, 0 );
         assert b.hasPiece( b.getRows() - 1, 0 );
         
+        assert b.lastPiece() != null;
+        
         b.resetBoard();
+        
+        assert b.lastPiece() == null;
         
         assert !b.hasPiece( 0, 0 );
         
