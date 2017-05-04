@@ -19,7 +19,7 @@ public class Checker {
 		int countRight = 0;
 		int countLeft = 0;
 		
-		for(int auxCol = col + 1; board.getPiece(row, auxCol).getOwner().equals(p.getOwner()) && auxCol < board.getColumns() ; auxCol++){
+		for(int auxCol = col + 1; board.getPiece(row, auxCol).getOwner().equals(p.getOwner()) && auxCol < board.getColumns(); auxCol++){
 			countRight = board.getPiece(row, auxCol).getOwner().equals(p.getOwner()) ? countRight + 1 : countRight;
 		}
 		
