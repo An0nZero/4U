@@ -87,8 +87,8 @@ public class ServerConnectionHandler {
 	}
 	
 	public static boolean checkRegex(String compare, Pattern regex){
-        Matcher m = regex.matcher(compare);
-        return m.matches();
+	    Matcher m = regex.matcher(compare);
+	    return m.matches();
 	}
 	
 	public String getAddress(){
