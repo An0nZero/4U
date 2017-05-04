@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 public class ConnectionHandler {
 
-	private static final String SERVER_ADDRESS_PATTERN = "\\d{1,3}+.\\d{1,3}+.\\d{1,3}+.\\d{1,3}+";
-	private static final String SERVER_PORT_PATTERN = "\\d{1,5}+";
+	private static final Pattern SERVER_ADDRESS_PATTERN = Pattern.compile( "\\d{1,3}+.\\d{1,3}+.\\d{1,3}+.\\d{1,3}+" );
+	private static final Pattern SERVER_PORT_PATTERN = Pattern.compile( "\\d{1,5}+" );
 	
 	private String address;
 	private int port;
@@ -107,13 +107,8 @@ public class ConnectionHandler {
 		return port;
 	}
 	
-	public static boolean checkRegex(String compare, String regex){
-		Pattern p;
-		Matcher m;
-		
-		p = Pattern.compile(regex);
-		m = p.matcher(compare);
-		
+	public static boolean checkRegex(String compare, Pattern regex){
+		Matcher m = regex.matcher(compare);
 		return m.matches();
 	}
 	

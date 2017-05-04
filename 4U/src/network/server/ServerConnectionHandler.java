@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class ServerConnectionHandler {
 
-	private static final String SERVER_PORT_PATTERN = "\\d{1,5}+";
+	private static final Pattern SERVER_PORT_PATTERN = Pattern.compile( "\\d{1,5}+" );
 	
 	private String address;
 	private int port;
@@ -63,7 +63,6 @@ public class ServerConnectionHandler {
 	private int readServerPort(Scanner in){
 		boolean b;
 		String input;
-		Pattern p;
 		Matcher m;
 		int port;
 		
@@ -72,8 +71,7 @@ public class ServerConnectionHandler {
 			
 			input = in.nextLine();
 		
-			p = Pattern.compile(SERVER_PORT_PATTERN);
-			m = p.matcher(input);
+			m = SERVER_PORT_PATTERN.matcher(input);
 			b = m.matches();
 			
 			if(!b)
@@ -88,14 +86,9 @@ public class ServerConnectionHandler {
 		return port;
 	}
 	
-	public static boolean checkRegex(String compare, String regex){
-		Pattern p;
-		Matcher m;
-		
-		p = Pattern.compile(regex);
-		m = p.matcher(compare);
-		
-		return m.matches();
+	public static boolean checkRegex(String compare, Pattern regex){
+	    Matcher m = regex.matcher(compare);
+	    return m.matches();
 	}
 	
 	public String getAddress(){
