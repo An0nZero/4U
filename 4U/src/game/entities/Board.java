@@ -1,6 +1,6 @@
 package game.entities;
 
-import exceptions.ColumnFullException;
+import game.exceptions.ColumnFullException;
 
 public class Board {
 

@@ -3,10 +3,10 @@ package tests;
 // import static org.junit.Assert.*;
 import org.junit.Test;
 
-import exceptions.ColumnFullException;
 import game.Checker;
 import game.entities.Board;
 import game.entities.Player;
+import game.exceptions.ColumnFullException;
 
 public class Game {
 
