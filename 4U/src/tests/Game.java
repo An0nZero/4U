@@ -28,11 +28,7 @@ public class Game {
 		assert !b.hasPiece(0, 0);
 		assert !b.hasPiece(b.getRows() - 1, b.getColumns() - 1);
 
-		try {
-			b.setPiece(new Player(), 0);
-		} catch (CellAlreadyOccupiedException e1) {
-			assert false;
-		}
+		b.setPiece(new Player(), 0);
 
 		assert !b.hasPiece(0, 0);
 		assert b.hasPiece(b.getRows() - 1, 0);
@@ -45,38 +41,39 @@ public class Game {
 
 		assert !b.hasPiece(0, 0);
 
-		try {
-			b.setPiece(new Player(), b.getColumns() - 1);
-		} catch (CellAlreadyOccupiedException e1) {
-			assert false;
-		}
+		b.setPiece(new Player(), b.getColumns() - 1);
 
 		assert b.hasPiece(b.getRows() - 1, b.getColumns() - 1);
 
-		try {
-			b.setPiece(new Player(), b.getColumns() - 1);
-			b.setPiece(new Player(), b.getColumns() - 1);
-			b.setPiece(new Player(), b.getColumns() - 1);
-			b.setPiece(new Player(), b.getColumns() - 1);
-			b.setPiece(new Player(), b.getColumns() - 1);
-		} catch (CellAlreadyOccupiedException e1) {
-			assert false;
-		}
+		b.setPiece(new Player(), b.getColumns() - 1);
+		b.setPiece(new Player(), b.getColumns() - 1);
+		b.setPiece(new Player(), b.getColumns() - 1);
+		b.setPiece(new Player(), b.getColumns() - 1);
+		b.setPiece(new Player(), b.getColumns() - 1);
 
 		try {
 			b.setPiece(new Player(), b.getColumns() - 1);
 			assert false;
-		} catch (CellAlreadyOccupiedException e) {
+		} catch (CellAlreadyOccupied e) {
 			assert true;
 		}
 
 	}
 
-	/*
-	 * Our Board _____________________ | | | | | | | | | | | | | | | | | | | | |
-	 * | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-	 * | | | | | | | | ------------------------> j | V i
-	 */
+	//
+	// Our Board
+	// _____________________
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// | | | | | | | | | | |
+	// -----------------------> j
+	// |
+	// V
+	// i
+	//
 
 	@Test
 	public void checker() {
@@ -86,50 +83,220 @@ public class Game {
 
 		Player p1 = new Player(), p2 = new Player();
 
+		// ## The last piece inserted is on the end of the line
+
 		// Placing 4 pieces horizontally...
 
-		try {
-			b.setPiece(p2, 0);
-			b.setPiece(p1, 1);
-			b.setPiece(p1, 2);
-			b.setPiece(p1, 3);
-		} catch (CellAlreadyOccupiedException e) {
-			assert false;
-		}
+		b.setPiece(p2, 0);
+		b.setPiece(p1, 1);
+		b.setPiece(p1, 2);
+		b.setPiece(p1, 3);
 
 		assert !c.check(b.lastPiece());
 
-		try {
-			b.setPiece(p1, 4);
-		} catch (CellAlreadyOccupiedException e) {
-			assert false;
-		}
+		b.setPiece(p1, 4);
 
 		assert c.check(b.lastPiece());
 
 		// Placing 4 pieces vertically...
 		b.resetBoard();
 
-		try {
-			b.setPiece(p2, 0);
-			b.setPiece(p1, 0);
-			b.setPiece(p1, 0);
-			b.setPiece(p1, 0);
-		} catch (CellAlreadyOccupiedException e) {
-			assert false;
-		}
+		b.setPiece(p2, 0);
+		b.setPiece(p1, 0);
+		b.setPiece(p1, 0);
+		b.setPiece(p1, 0);
 
 		assert !c.check(b.lastPiece());
 
-		try {
-			b.setPiece(p1, 0);
-		} catch (CellAlreadyOccupiedException e) {
-			assert false;
-		}
+		b.setPiece(p1, 0);
 
 		assert c.check(b.lastPiece());
 
-		// TODO add more tests...
+		// Placing 4 pieces diagonally...
+		b.resetBoard();
+
+		b.setPiece(p2, 0);
+		b.setPiece(p2, 0);
+		b.setPiece(p2, 0);
+		b.setPiece(p2, 0);
+		b.setPiece(p1, 0);
+
+		b.setPiece(p2, 1);
+		b.setPiece(p2, 1);
+		b.setPiece(p2, 1);
+		b.setPiece(p1, 1);
+
+		b.setPiece(p2, 2);
+		b.setPiece(p2, 2);
+		b.setPiece(p1, 2);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p2, 3);
+		b.setPiece(p1, 3);
+
+		assert c.check(b.lastPiece());
+
+		// Placing 4 pieces in the other diagonal...
+		b.resetBoard();
+
+		b.setPiece(p2, 4);
+		b.setPiece(p2, 4);
+		b.setPiece(p2, 4);
+		b.setPiece(p2, 4);
+		b.setPiece(p1, 4);
+
+		b.setPiece(p2, 3);
+		b.setPiece(p2, 3);
+		b.setPiece(p2, 3);
+		b.setPiece(p1, 3);
+
+		b.setPiece(p2, 2);
+		b.setPiece(p2, 2);
+		b.setPiece(p1, 2);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p2, 1);
+		b.setPiece(p1, 1);
+
+		assert c.check(b.lastPiece());
+
+		// ## The last piece inserted is on the middle of the line
+
+		// Placing 4 pieces horizontally...
+		b.resetBoard();
+
+		b.setPiece(p2, 0);
+		b.setPiece(p1, 1);
+		b.setPiece(p1, 2);
+		b.setPiece(p1, 4);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p1, 3);
+
+		assert c.check(b.lastPiece());
+
+		// Placing 4 pieces diagonally...
+		b.resetBoard();
+
+		b.setPiece(p1, 0);
+		b.setPiece(p1, 0);
+		b.setPiece(p1, 0);
+		b.setPiece(p1, 0);
+		b.setPiece(p2, 0);
+
+		b.setPiece(p1, 1);
+		b.setPiece(p1, 1);
+		b.setPiece(p1, 1);
+
+		b.setPiece(p1, 2);
+		b.setPiece(p1, 2);
+		b.setPiece(p2, 2);
+
+		b.setPiece(p1, 3);
+		b.setPiece(p2, 3);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p2, 1);
+
+		assert c.check(b.lastPiece());
+
+		// Placing 4 pieces in the other diagonal...
+		b.resetBoard();
+
+		b.setPiece(p1, 4);
+		b.setPiece(p1, 4);
+		b.setPiece(p1, 4);
+		b.setPiece(p1, 4);
+		b.setPiece(p2, 4);
+
+		b.setPiece(p1, 3);
+		b.setPiece(p1, 3);
+		b.setPiece(p1, 3);
+
+		b.setPiece(p1, 2);
+		b.setPiece(p1, 2);
+		b.setPiece(p2, 2);
+
+		b.setPiece(p1, 1);
+		b.setPiece(p2, 1);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p2, 3);
+
+		assert c.check(b.lastPiece());
+
+		// ## The last piece inserted is on the start of the line
+
+		// Placing 4 pieces horizontally...
+		b.resetBoard();
+
+		b.setPiece(p2, 0);
+		b.setPiece(p1, 2);
+		b.setPiece(p1, 3);
+		b.setPiece(p1, 4);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p1, 1);
+
+		assert c.check(b.lastPiece());
+
+		// Placing 4 pieces diagonally...
+		b.resetBoard();
+
+		b.setPiece(p2, 0);
+		b.setPiece(p2, 0);
+		b.setPiece(p2, 0);
+		b.setPiece(p2, 0);
+
+		b.setPiece(p2, 1);
+		b.setPiece(p2, 1);
+		b.setPiece(p2, 1);
+		b.setPiece(p1, 1);
+
+		b.setPiece(p2, 2);
+		b.setPiece(p2, 2);
+		b.setPiece(p1, 2);
+
+		b.setPiece(p2, 3);
+		b.setPiece(p1, 3);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p1, 0);
+
+		assert c.check(b.lastPiece());
+
+		// Placing 4 pieces in the other diagonal...
+		b.resetBoard();
+
+		b.setPiece(p2, 4);
+		b.setPiece(p2, 4);
+		b.setPiece(p2, 4);
+		b.setPiece(p2, 4);
+
+		b.setPiece(p2, 3);
+		b.setPiece(p2, 3);
+		b.setPiece(p2, 3);
+		b.setPiece(p1, 3);
+
+		b.setPiece(p2, 2);
+		b.setPiece(p2, 2);
+		b.setPiece(p1, 2);
+
+		b.setPiece(p2, 1);
+		b.setPiece(p1, 1);
+
+		assert !c.check(b.lastPiece());
+
+		b.setPiece(p1, 4);
+
+		assert c.check(b.lastPiece());
 
 	}
 
