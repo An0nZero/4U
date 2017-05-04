@@ -1,5 +1,8 @@
 package game;
 
+import game.entities.Board;
+import game.entities.Piece;
+
 public class Checker {
 
 	private Board board;
