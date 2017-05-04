@@ -13,7 +13,7 @@ public class Checker {
 	}
 	
 	public boolean check(Piece p){
-		return checkHorizontaly(p) || checkVerticaly(p) || checkDiagonaly(p) || checkOtherDiagonaly(p);
+		return checkHorizontally(p) || checkVertically(p) || checkDiagonally(p) || checkOtherDiagonally(p);
 	}
 	
 	private boolean checkOwner( int row, int col, Player owner ) {
@@ -38,7 +38,7 @@ public class Checker {
 	/*
 	 * 1 X 2
 	 */
-	private boolean checkHorizontaly(Piece p){
+	private boolean checkHorizontally(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
@@ -61,7 +61,7 @@ public class Checker {
 	 * X
 	 * 1
 	 */
-	private boolean checkVerticaly(Piece p){
+	private boolean checkVertically(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
@@ -81,7 +81,7 @@ public class Checker {
 	 *  X
 	 *   2
 	 */
-	private boolean checkDiagonaly(Piece p){
+	private boolean checkDiagonally(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
@@ -105,7 +105,7 @@ public class Checker {
 	 *  X
 	 * 2
 	 */
-	private boolean checkOtherDiagonaly(Piece p){
+	private boolean checkOtherDiagonally(Piece p){
 		int col = p.getCol();
 		int row = p.getRow();
 		
