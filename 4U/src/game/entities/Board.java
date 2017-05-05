@@ -1,6 +1,7 @@
 package game.entities;
 
 import game.exceptions.ColumnFullException;
+import game.exceptions.InvalidBoardPositionException;
 
 public class Board {
 
@@ -58,11 +59,14 @@ public class Board {
 		return this.lastPiece;
 	}
 
-	public boolean hasPiece(int row, int col) {
-		return board[row][col] != null;
+	public boolean hasPiece(int row, int col) throws InvalidBoardPositionException {
+		return getPiece(row, col) != null;
 	}
 
-	public Piece getPiece(int row, int col) {
+	public Piece getPiece(int row, int col) throws InvalidBoardPositionException {
+		if (!validPosition(row, col))
+			throw new InvalidBoardPositionException();
+
 		return board[row][col];
 	}
 
@@ -76,6 +80,7 @@ public class Board {
 
 	public void resetBoard() {
 		this.lastPiece = null;
+
 		for (int i = 0; i < this.rows; i++) {
 			for (int j = 0; j < this.columns; j++) {
 				board[i][j] = null;
@@ -101,4 +106,16 @@ public class Board {
 		return pieceCount[col] >= rows;
 	}
 
+	/**
+	 * Verifies if a given position is valid on the grid or not
+	 * 
+	 * @param row
+	 *            row to validate
+	 * @param col
+	 *            column to validate
+	 * @return true if valid false otherwise
+	 */
+	public boolean validPosition(int row, int col) {
+		return row >= 0 && row < rows && col >= 0 && col < columns;
+	}
 }
