@@ -3,7 +3,6 @@ package game;
 import game.entities.Board;
 import game.entities.Piece;
 import game.entities.PieceIterator;
-import game.exceptions.InvalidBoardPositionException;
 
 public class Checker {
 
@@ -14,13 +13,13 @@ public class Checker {
 	private static final int J = 1;
 
 	// Directions as vectors
-	private static final int[] UP = { 0, -1 };
-	private static final int[] DOWN = { 0, 1 };
-	private static final int[] LEFT = { -1, 0 };
-	private static final int[] RIGHT = { 1, 0 };
+	private static final int[] UP = { -1, 0 };
+	private static final int[] DOWN = { 1, 0 };
+	private static final int[] LEFT = { 0, -1 };
+	private static final int[] RIGHT = { 0, 1 };
 	private static final int[] UPLEFT = { -1, -1 };
-	private static final int[] UPRIGHT = { 1, -1 };
-	private static final int[] DOWNLEFT = { -1, 1 };
+	private static final int[] UPRIGHT = { -1, 1 };
+	private static final int[] DOWNLEFT = { 1, -1 };
 	private static final int[] DOWNRIGHT = { 1, 1 };
 
 	// Orientations
@@ -35,7 +34,21 @@ public class Checker {
 	private static final int[][][] ALL_ORIENTATIONS = {HORIZONTAL,VERTICAL,DIAGONAL_UPLEFT,DIAGONAL_UPRIGHT};
 
 	private Board board;
-
+	
+	// 
+	// Our Board 
+	// _____________________ 
+	// | | | | | | | | | | | 
+	// | | | | | | | | | | | 
+	// | | | | | | | | | | | 
+	// | | | | | | | | | | | 
+	// | | | | | | | | | | | 
+	// | | | | | | | | | | | 
+	// -----------------------> j 
+	// | 
+	// V 
+	// i 
+	// 
 	public Checker(Board board) {
 		this.board = board;
 	}
@@ -53,23 +66,14 @@ public class Checker {
 			orientationSum = 0;
 
 			for (int[] direction : orientation) {
-				PieceIterator it = null;
-
-				try {
-					it = new PieceIterator(board, p.getRow(), p.getCol(), direction[I], direction[J]);
-				} catch (InvalidBoardPositionException e) {
-					// This piece of code is unreachable as long as the piece is
-					// correctly created
-					e.printStackTrace();
-					System.exit(1);
-				}
-
+				PieceIterator it = new PieceIterator(board, p.getRow(), p.getCol(), direction[I], direction[J]);
+				
 				while (it.hasNext()) {
 					if (it.next().getOwner() == p.getOwner()) {
 						orientationSum++;
-						// while counting orientation sum piece p is couned
-						// twice so that requiers a +1 to correct it
-						if (orientationSum >= CONSECUTIVE_PIECES + 1)
+						// while counting orientation sum piece p is counted
+						// twice 
+						if (orientationSum > CONSECUTIVE_PIECES )
 							return true;
 					} else {
 						break;

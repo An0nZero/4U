@@ -1,6 +1,6 @@
 package game.exceptions;
 
-public class InvalidBoardPositionException extends Exception {
+public class InvalidBoardPositionException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

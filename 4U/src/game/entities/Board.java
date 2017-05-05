@@ -64,9 +64,9 @@ public class Board {
 	}
 
 	public Piece getPiece(int row, int col) throws InvalidBoardPositionException {
-		if(!(row >= 0 && row < rows && col >= 0 && col < columns))
+		if (!validPosition(row, col))
 			throw new InvalidBoardPositionException();
-		
+
 		return board[row][col];
 	}
 
@@ -106,4 +106,16 @@ public class Board {
 		return pieceCount[col] >= rows;
 	}
 
+	/**
+	 * Verifies if a given position is valid on the grid or not
+	 * 
+	 * @param row
+	 *            row to validate
+	 * @param col
+	 *            column to validate
+	 * @return true if valid false otherwise
+	 */
+	public boolean validPosition(int row, int col) {
+		return row >= 0 && row < rows && col >= 0 && col < columns;
+	}
 }

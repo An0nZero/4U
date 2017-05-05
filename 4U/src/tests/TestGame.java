@@ -7,7 +7,6 @@ import game.Checker;
 import game.entities.Board;
 import game.entities.Player;
 import game.exceptions.ColumnFullException;
-import game.exceptions.InvalidBoardPositionException;
 
 public class TestGame {
 
@@ -30,7 +29,7 @@ public class TestGame {
 	}
 
 	@Test
-	public void addPiece() throws InvalidBoardPositionException {
+	public void addPiece() {
 
 		Board b = new Board();
 
